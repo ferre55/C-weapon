@@ -36,14 +36,14 @@ To implement a circular buffer, we need to create the following functions:
 
 For the implementation, we'll use a three-file structure following C programming best practices:
 
-1. [Main.c](P0_Circular_Buffer/Main.c): The main source file that contains:
+1. [Main.c](Main.c): The main source file that contains:
 - Program entry point (main() function)
 - Function calls to test the circular buffer
 - Required library includes
-2. [Circular_buffer.c]P0_Circular_Buffer/(Circular_buffer.c): The implementation source file that contains:
+2. [Circular_buffer.c](Circular_buffer.c): The implementation source file that contains:
 - Function implementations
 - Required library includes
-3. [Circular_buffer.h](P0_Circular_Buffer/Circular_buffer.h):The header file that contains:
+3. [Circular_buffer.h](Circular_buffer.h):The header file that contains:
 - Structure definitions
 - Function declarations (prototypes)
 - Constant definitions
