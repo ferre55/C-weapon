@@ -46,5 +46,5 @@ int main( void )
 
     AppBuffer_isBufferEmpty( &CircBuffer);
 
-    return 0
+    return 0;
 }
