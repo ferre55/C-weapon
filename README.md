@@ -20,5 +20,5 @@ Any one how is reading this repository, please do not hesitate to share way to i
 
 ## Credits
 
-This tutorial was written by [Jennifer Reynaga](www.linkedin.com/in/iam-jennifer-reynaga-embedded)
+This tutorial was written by [Jennifer Reynaga](https://www.linkedin.com/in/iam-jennifer-reynaga-embedded/)
 
