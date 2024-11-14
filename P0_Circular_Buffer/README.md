@@ -27,7 +27,7 @@ Buffer is full when the pointers Head and Tail meet.
 
 To implement a circular buffer we are going to need to create the following operations:
 
-1. **AppBuffer_writeData():** Interface that allows writing to the buffer.
+1. **AppBuffer_initBuffer():** Interface to initialize the buffer.
 2. **AppBuffer_writeData():** Interface that allows writing to the buffer.
 3. **AppBuffer_readData():** Interface that allows reading from the buffer.
 4. **AppBuffer_isBufferEmpty:** Interface that reports if the buffer is empty.
