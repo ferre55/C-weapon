@@ -29,8 +29,8 @@ void AppBuffer_initBuffer( AppBuffer_Buffer *hbuffer )
     hbuffer ->  Empty = TRUE;       /* The buffer doesnt have any elements */
     hbuffer ->  Head = 0;           /* Head in the position 0 */
     hbuffer ->  Tail = 0;           /* Tail in the position 0 */
-    hbuffer ->  Head_wrap = 0;      /* Flag when Head is wrap */
-    hbuffer ->  Tail_wrap = 0;      /* Flag when Tail is wrap */
+    hbuffer ->  Head_wrap = FALSE;      /* Flag when Head is wrap */
+    hbuffer ->  Tail_wrap = FALSE;      /* Flag when Tail is wrap */
 }
 
 void AppBuffer_writeData( AppBuffer_Buffer *hbuffer, unsigned char data )
