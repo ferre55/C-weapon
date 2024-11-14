@@ -68,8 +68,8 @@ typedef struct
 ```
 This the structure to handle the buffer and its pointers.
 
-**unsigned char *Buffer :** The buffer is a pointer to a byte array.
-**Tail_wrap and Head_wrap:** A flag indicating if the head/tail has wrapped around to the beginning of the buffer.
+- **unsigned char *Buffer :** The buffer is a pointer to a byte array.
+- **Tail_wrap and Head_wrap:** A flag indicating if the head/tail has wrapped around to the beginning of the buffer.
 
 
 # Circular_buffer.c
@@ -93,6 +93,10 @@ In this function, we initialize several elements of the data structure:
 - The Head_wrap and Tail_wrap flags are set to FALSE as the conditions for them to be TRUE have not occurred.
 
 ## Write in the circular buffer
+
+Write a new 8-bit data to the buffer if there is available space; if there is no space,
+no data will be written. Function will determine if the queue is full with the last data written.
+
 ```c
 void AppBuffer_writeData( AppBuffer_Buffer *hbuffer, unsigned char data )
 {
