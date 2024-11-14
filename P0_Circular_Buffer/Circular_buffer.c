@@ -76,8 +76,7 @@ unsigned char AppBuffer_readData( AppBuffer_Buffer *hbuffer )
         if((hbuffer -> Tail + 1) == ( hbuffer -> Elements))
         {
             hbuffer -> Tail_wrap = 1;
-            hbuffer -> Tail = 0; /* Set flag Tail wrap */ 
-             
+            hbuffer -> Tail = 0; /* Set flag Tail wrap */    
         }
         else
         {
@@ -101,6 +100,5 @@ unsigned char AppBuffer_isBufferEmpty( AppBuffer_Buffer *hbuffer )
     }
 
     return status;    
-
 }
 
