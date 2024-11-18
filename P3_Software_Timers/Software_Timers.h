@@ -2,6 +2,12 @@
 #ifndef SOFTWARE_TIMERS_H_
 #define SOFTWARE_TIMERS_H_
 
+/**
+ * \file       Software_Timers.h
+ * \author     Jennifer Reynaga
+ * \brief      Header file for the Software Timers.
+ */
+
 /*----------------------------------------------------------------------------*/
 /*                                 Includes                                   */
 /*----------------------------------------------------------------------------*/
@@ -15,20 +21,9 @@
 #define TIMERS_N                1u       /*!< Number of timers */
 #define OFF_SET                 1u       /*!< Offset value */
 
-/* Declare global variables as extern */
-
-/* AppSched_Timer structure as extern*/
-extern AppSched_Timer timers[ TIMERS_N ];
-
-/* Declare the Timer IDs as extern */
-extern uint8_t TimerID;
-extern uint8_t TimerID2;
-extern uint8_t TimerID3;
-
 /*----------------------------------------------------------------------------*/
 /*                                 Data types                                 */
 /*----------------------------------------------------------------------------*/
-
 
 /**
  * @brief Structure to represent a software timer
@@ -39,9 +34,19 @@ typedef struct _AppSched_Timer
     uint32_t count;                     /*!< Current timer decrement count */
     uint8_t startFlag;                  /*!< Flag to indicate if the timer is running */
     void (*callbackPtr)(void);          /*!< Pointer to the callback function to be called when the timer expires */
-
 } AppSched_Timer;
 
+/*----------------------------------------------------------------------------*/
+/*                       Declaration of Global Variables                      */
+/*----------------------------------------------------------------------------*/
+
+/* AppSched_Timer structure as extern*/
+extern AppSched_Timer timers[ TIMERS_N ];   /*!< Array of software timers */
+
+/* Declare the Timer IDs as extern */
+extern uint8_t TimerID;
+extern uint8_t TimerID2;
+extern uint8_t TimerID3;
 
 /*----------------------------------------------------------------------------*/
 /*                           Declaration of functions                         */
