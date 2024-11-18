@@ -1,8 +1,8 @@
 # Software Timers
 
-The [Timers](https://en.wikipedia.org/wiki/Round-robin_scheduling) provides a mechanism to manage and execute multiple timers within a scheduler. It allows for the registration, starting, stopping, and periodic execution of timers with specified timeouts and callback functions.
+The Timers provides a mechanism to manage and execute multiple timers within a scheduler. It allows for the registration, starting, stopping, and periodic execution of timers with specified timeouts and callback functions.
 
-![Alt text](https://www.boardinfinity.com/blog/content/images/2022/12/Your-paragraph-text--82--1.jpg)
+![Alt text](https://c.tadst.com/gfx/1200x630/fb-stopwatch2.png?1)
 
 ## Characteristics
 - **Timer Management:** Handles multiple timers with specified timeouts.
@@ -12,6 +12,8 @@ The [Timers](https://en.wikipedia.org/wiki/Round-robin_scheduling) provides a me
 
 ## How it works?
 The Software Timers module uses a structure to manage timers and their execution. Each timer has an associated timeout, callback function, and control flags. The Scheduler runs timers based on their timeouts and the defined tick value.
+
+Unlike hardware timers in microcontrollers, which rely on dedicated hardware resources, software timers are implemented purely in software. This allows for greater flexibility and scalability, as the number of timers is limited only by the available memory and processing power.
 
 ## Functions
 1. **AppSched_registerTimer:** Function to register a timer with the scheduler.
