@@ -56,7 +56,19 @@
 #define JANUARY                 1u
 #define FEBRUARY                2u
 
+/* Array Position */
+#define SECOND_POSITION         2
 
+/* Calculate Leap Year Values */
+#define DIVISIBLE_BY_4(year_zeller)    ((year_zeller) % 4 == 0)
+#define DIVISIBLE_BY_100(year_zeller)  ((year_zeller) % 100 == 0)
+#define DIVISIBLE_BY_400(year_zeller)  ((year_zeller) % 400 == 0)
+
+/* Zeller’s Congruence formula*/
+#define MONTH_ARRAY_SIZE 12
+#define IS_JANUARY_OR_FEBRUARY(month) ((month) < 3)
+#define ZELLER_CONGRUENCE(year_zeller, month, day, t) \
+    ((year_zeller) + (year_zeller) / 4 - (year_zeller) / 100 + (year_zeller) / 400 + (t)[(month) - 1] + (day)) % 7
 
 /*----------------------------------------------------------------------------*/
 /*                                 Data types                                 */
@@ -92,6 +104,11 @@ typedef struct _AppRtcc_Clock
     AppRtcc_Ctrl ctrl;          /*!< Clock control bits               */
 } AppRtcc_Clock;
 
+/*----------------------------------------------------------------------------*/
+/*                       Declaration of Global Variables                      */
+/*----------------------------------------------------------------------------*/
+
+extern AppRtcc_Clock clock_rtcc;
 /*----------------------------------------------------------------------------*/
 /*                       Declaration of Global Variables                      */
 /*----------------------------------------------------------------------------*/
