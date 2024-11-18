@@ -30,8 +30,8 @@ void AppQueue_initQueue( AppQue_Queue *queue )
     queue ->  Empty = TRUE;     /* The buffer doesnt have any elements */
     queue ->  Head = 0;         /* Head in the position 0 */
     queue ->  Tail = 0;         /* Tail in the position 0 */
-    queue ->  Head_wrap = 0;    /* Flag when Head is wrap */
-    queue ->  Tail_wrap = 0;    /* Flag when Tail is wrap */
+    queue ->  Head_wrap = FALSE;    /* Flag when Head is wrap */
+    queue ->  Tail_wrap = FALSE;    /* Flag when Tail is wrap */
 }
 
 uint8_t AppQueue_writeData( AppQue_Queue *queue, void *data )
@@ -110,11 +110,6 @@ uint8_t AppQueue_isQueueEmpty( AppQue_Queue *queue )
 
 void AppQueue_flushQueue( AppQue_Queue *queue )
 {
-    queue ->  Full = FALSE;         /* The buffer is not full */
-    queue ->  Empty = TRUE;         /* The buffer doesnt have any elements */
-    queue ->  Head = 0;             /* Head in the position 0 */
-    queue ->  Tail = 0;             /* Tail in the position 0 */
-    queue ->  Head_wrap = 0;        /* Flag when Head is wrap */
-    queue ->  Tail_wrap = 0;        /* Flag when Tail is wrap */
+    AppQueue_initQueue(queue);
 
 }
