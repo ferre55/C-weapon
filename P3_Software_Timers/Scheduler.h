@@ -13,6 +13,7 @@
 /*                                  Includes                                  */
 /*----------------------------------------------------------------------------*/
 #include <stdint.h>
+#include "Software_Timers.h"
 
 /*----------------------------------------------------------------------------*/
 /*                             Defines and macros                             */
@@ -39,17 +40,18 @@ typedef struct _task
 
 } AppSched_Task; 
 
-/**
- * @brief Structure to represent the scheduler.
- */
-typedef struct _scheduler
+typedef struct _AppSched_Scheduler
 {
-    uint8_t tasks;                      /*!< Number of tasks to handle */
+    uint8_t tasks;                      /*!< Number of task to handle */
     uint32_t tick;                      /*!< The time base in ms */
-    uint32_t timeout;                   /*!< The number of milliseconds the scheduler should run */
+    uint32_t elapsed;
     uint8_t tasksCount;                 /*!< Internal task counter */
-    uint8_t tickCount;                  /*!< Internal tick counter */
+    uint8_t tickCount;                 /*!<internal task counter*/
+    uint8_t timersCount;                /*!< Internal task counter */
+    uint32_t timeout;                   /*!< The number of milliseconds the scheduler should run */
     AppSched_Task *taskPtr;             /*!< Pointer to buffer for the TCB tasks */
+    uint8_t timers;                     /*!< Number of software timer to use */
+    AppSched_Timer *timerPtr;           /*!< Pointer to buffer timer array */
 
 } AppSched_Scheduler;
 

@@ -16,6 +16,12 @@
 /*----------------------------------------------------------------------------*/
 /*                               Local defines                                */
 /*----------------------------------------------------------------------------*/
+/* Scheduler configuration structures */
+AppSched_Scheduler Sche;
+AppSched_Task tasks[ TASKS_N ];
+
+/* Tasks IDs */
+uint8_t TaskID1, TaskID2;
 
 /*----------------------------------------------------------------------------*/
 /*                       Declaration of local functions                       */
@@ -29,6 +35,7 @@ void AppSched_initScheduler( AppSched_Scheduler *scheduler )
 {
     scheduler->tasksCount = 0;        /* Initialize the task counter */
     scheduler->tickCount  = 0;        /* Initialize the tick counter */
+    scheduler->timersCount = 0;       /* Initialize the timer counter */
 }
 
 uint8_t AppSched_registerTask( AppSched_Scheduler *scheduler, void (*initPtr)(void), void (*taskPtr)(void), uint32_t period )
@@ -181,6 +188,28 @@ void AppSched_startScheduler( AppSched_Scheduler *scheduler )
                     scheduler->taskPtr[a].taskFunc();
                 }
             }
+            
+            for (uint8_t b = 0; b < scheduler -> timers; b++)
+            {
+                
+                scheduler -> timerPtr[b].count++; /* Store each tick*/
+                
+                /* Timer shall count from a timeout value down to zero*/
+                if(((AppSched_getTimer(scheduler,b)) == 0) && (scheduler -> timerPtr[b].startFlag == TRUE))
+                {
+                    /* Reset count to start again*/
+                    scheduler -> timerPtr[b].count = 0;
+                    /* Callback function*/
+                    scheduler -> timerPtr[b].callbackPtr();
+
+                }
+                else
+                {
+                    /* Do nothing */
+                }
+
+            }
+
         }
     }
 }
