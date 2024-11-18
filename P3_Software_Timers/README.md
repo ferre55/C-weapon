@@ -226,6 +226,124 @@ uint8_t AppSched_stopTimer( AppSched_Scheduler *scheduler, uint8_t timer )
 
 # Scheduler
 
+To integrate software timers with the scheduler, the following changes and implementations were added:
+
 ## Scheduler.h
 
+### Forward declaration
+
+To ensure the scheduler can recognize the AppSched_Timer structure defined in Software_Timers.h, we use a forward declaration. This allows the scheduler to reference the structure before its full definition is available.
+
+```c
+struct _AppSched_Timer;
+typedef struct _AppSched_Timer AppSched_Timer;
+```
+
+### Scheduler Structure
+
+The AppSched_Scheduler structure has been updated from the previous project [P2_Scheduler](/P2_Scheduler) to include new elements for timer management. This structure now includes:
+
+```c
+typedef struct _AppSched_Scheduler
+{
+    /*Same elements from the P2_Scheduler */
+    uint32_t elapsed;                   /*!< The elapsed time since the scheduler started */
+    uint8_t timersCount;                /*!< Internal counter for the number of timers */
+    uint8_t timers;                     /*!< Number of software timers to use */
+    AppSched_Timer *timerPtr;           /*!< Pointer to buffer timer array */
+
+} AppSched_Scheduler;
+```
+
 ## Scheduler.c
+
+We use the same functions as in the previous project [P2_Scheduler](/P2_Scheduler), but now we have added sections to handle timers.
+
+```c
+void AppSched_startScheduler( AppSched_Scheduler *scheduler )
+{
+    /* Get the milliseconds for the first time */
+    uint32_t tickstart = milliseconds();
+    uint32_t elapsed = 0; /* Counter of ticks */
+    uint32_t new_elapsed = 0; /* Counter of ticks */
+
+    /* Running the task init functions one single time */
+    for (uint8_t y = 0; y < scheduler->tasks; y++)
+    {
+        if ((scheduler->taskPtr[y].initFunc != NULL) && (scheduler->taskPtr[y].startFlag == TRUE))
+        {
+            scheduler->taskPtr[y].initFunc();
+        }
+        else
+        {
+            /* initFunc == NULL */
+            /* Do Nothing */
+        }
+    }
+
+    while (new_elapsed <= scheduler->timeout)
+    {   
+        new_elapsed = milliseconds() - tickstart;
+
+        if (new_elapsed - elapsed >= scheduler->tick)
+        {
+            scheduler->tickCount++;
+            elapsed += scheduler->tick;
+
+            for (uint8_t a = 0; a < scheduler->tasks; a++)
+            {
+                if ((scheduler->tickCount % ((scheduler->taskPtr[a].period) / (scheduler->tick)) == 0) && (scheduler->taskPtr[a].startFlag == TRUE))
+                {
+                    scheduler->taskPtr[a].taskFunc();
+                }
+            }
+            
+            for (uint8_t b = 0; b < scheduler -> timers; b++)
+            {
+                
+                scheduler -> timerPtr[b].count++; /* Store each tick*/
+                
+                /* Timer shall count from a timeout value down to zero*/
+                if(((AppSched_getTimer(scheduler,b)) == 0) && (scheduler -> timerPtr[b].startFlag == TRUE))
+                {
+                    /* Reset count to start again*/
+                    scheduler -> timerPtr[b].count = 0;
+                    /* Callback function*/
+                    scheduler -> timerPtr[b].callbackPtr();
+
+                }
+
+            }
+
+        }
+    }
+}
+
+
+```
+
+### Timer Implementation in AppSched_startScheduler
+
+The following code snippet shows how timers are managed within the AppSched_startScheduler function:
+```c    
+for (uint8_t b = 0; b < scheduler -> timers; b++)
+{
+                
+    scheduler -> timerPtr[b].count++; /* Store each tick*/
+                
+    /* Timer shall count from a timeout value down to zero*/
+    if(((AppSched_getTimer(scheduler,b)) == 0) && (scheduler -> timerPtr[b].startFlag == TRUE))
+    {
+        /* Reset count to start again*/
+        scheduler -> timerPtr[b].count = 0;
+        /* Callback function*/
+        scheduler -> timerPtr[b].callbackPtr();
+
+    }
+
+}
+
+
+```
+
+This implementation ensures that each timer is incremented on every tick, and when a timer expires, its callback function is executed, and the timer count is reset.
