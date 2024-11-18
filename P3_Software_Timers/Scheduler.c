@@ -12,9 +12,14 @@
 #include <string.h>
 #include <time.h>
 #include "Scheduler.h"
+#include "Software_Timers.h"
 
 /*----------------------------------------------------------------------------*/
 /*                               Local defines                                */
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
+/*                       Declaration of Global Variables                      */
 /*----------------------------------------------------------------------------*/
 /* Scheduler configuration structures */
 AppSched_Scheduler Sche;
@@ -181,6 +186,7 @@ void AppSched_startScheduler( AppSched_Scheduler *scheduler )
         {
             scheduler->tickCount++;
             elapsed += scheduler->tick;
+
             for (uint8_t a = 0; a < scheduler->tasks; a++)
             {
                 if ((scheduler->tickCount % ((scheduler->taskPtr[a].period) / (scheduler->tick)) == 0) && (scheduler->taskPtr[a].startFlag == TRUE))
@@ -202,10 +208,6 @@ void AppSched_startScheduler( AppSched_Scheduler *scheduler )
                     /* Callback function*/
                     scheduler -> timerPtr[b].callbackPtr();
 
-                }
-                else
-                {
-                    /* Do nothing */
                 }
 
             }
