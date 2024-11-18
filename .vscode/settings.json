@@ -4,6 +4,8 @@
         "string.h": "c",
         "stdint.h": "c",
         "software_timers.h": "c",
-        "scheduler.h": "c"
+        "scheduler.h": "c",
+        "clock_calendar.h": "c",
+        "stdio.h": "c"
     }
 }
