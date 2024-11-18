@@ -15,6 +15,16 @@
 #define TIMERS_N                1u       /*!< Number of timers */
 #define OFF_SET                 1u       /*!< Offset value */
 
+/* Declare global variables as extern */
+
+/* AppSched_Timer structure as extern*/
+extern AppSched_Timer timers[ TIMERS_N ];
+
+/* Declare the Timer IDs as extern */
+extern uint8_t TimerID;
+extern uint8_t TimerID2;
+extern uint8_t TimerID3;
+
 /*----------------------------------------------------------------------------*/
 /*                                 Data types                                 */
 /*----------------------------------------------------------------------------*/
