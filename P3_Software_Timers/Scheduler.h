@@ -13,20 +13,27 @@
 /*                                  Includes                                  */
 /*----------------------------------------------------------------------------*/
 #include <stdint.h>
-#include "Software_Timers.h"
 
 /*----------------------------------------------------------------------------*/
 /*                             Defines and macros                             */
 /*----------------------------------------------------------------------------*/
 #define FALSE                0u         /*!< Boolean false value */
 #define TRUE                 1u         /*!< Boolean true value */
-#define TASKS_N              2u         /*!< Number of tasks */
+#define TASKS_N              1u         /*!< Number of tasks */
 #define TICK_VAL             100u       /*!< Tick value in milliseconds */
 #define TIME_OUT             10000u     /*!< Timeout value in milliseconds */
 
 /*----------------------------------------------------------------------------*/
 /*                                 Data types                                 */
 /*----------------------------------------------------------------------------*/
+
+/* Forward declaration */
+/* This forward declaration tells the compiler that AppSched_Timer
+is a type that will be defined later, allowing you to use pointers to
+AppSched_Timer in Scheduler.h without needing the full definition of AppSched_Timer at that point. */
+struct _AppSched_Timer;
+typedef struct _AppSched_Timer AppSched_Timer;
+
 /**
  * @brief Structure to represent a task.
  */
@@ -40,23 +47,27 @@ typedef struct _task
 
 } AppSched_Task; 
 
+/**
+ * @brief Structure to represent the scheduler.
+ */
 typedef struct _AppSched_Scheduler
 {
     uint8_t tasks;                      /*!< Number of task to handle */
     uint32_t tick;                      /*!< The time base in ms */
-    uint32_t elapsed;
-    uint8_t tasksCount;                 /*!< Internal task counter */
-    uint8_t tickCount;                 /*!<internal task counter*/
-    uint8_t timersCount;                /*!< Internal task counter */
+    uint32_t elapsed;                   /*!< The elapsed time since the scheduler started */
+    uint8_t tasksCount;                 /*!< Internal counter for the number of tasks */
+    uint8_t tickCount;                  /*!< Internal counter for ticks */
+    uint8_t timersCount;                /*!< Internal counter for the number of timers */
     uint32_t timeout;                   /*!< The number of milliseconds the scheduler should run */
-    AppSched_Task *taskPtr;             /*!< Pointer to buffer for the TCB tasks */
-    uint8_t timers;                     /*!< Number of software timer to use */
+    AppSched_Task *taskPtr;             /*!< Pointer to the buffer for the task control blocks (TCBs) */
+    uint8_t timers;                     /*!< Number of software timers to use */
     AppSched_Timer *timerPtr;           /*!< Pointer to buffer timer array */
 
 } AppSched_Scheduler;
 
-
-/* Declare global variables as extern */
+/*----------------------------------------------------------------------------*/
+/*                       Declaration of Global Variables                      */
+/*----------------------------------------------------------------------------*/
 
 /* Scheduler configuration structures as extern */
 extern AppSched_Scheduler Sche;
