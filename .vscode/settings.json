@@ -2,6 +2,8 @@
     "files.associations": {
         "queue.h": "c",
         "string.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "software_timers.h": "c",
+        "scheduler.h": "c"
     }
 }
