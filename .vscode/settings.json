@@ -6,6 +6,7 @@
         "software_timers.h": "c",
         "scheduler.h": "c",
         "clock_calendar.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }
