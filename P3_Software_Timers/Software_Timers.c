@@ -13,7 +13,7 @@
 #include <string.h>
 #include <time.h>
 #include "Scheduler.h"
-#include "Software_timers.h"
+#include "Software_Timers.h"
 
 
 /*----------------------------------------------------------------------------*/
