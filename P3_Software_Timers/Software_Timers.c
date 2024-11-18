@@ -35,10 +35,6 @@ uint8_t TimerID3;
 /*                     Implementation of functions                            */
 /*----------------------------------------------------------------------------*/
 
-/*----------------------------------------------------------------------------*/
-/*                Implementation of Scheduler  functions                      */
-/*----------------------------------------------------------------------------*/
-
 uint8_t AppSched_registerTimer( AppSched_Scheduler *scheduler, uint32_t timeout, void (*callbackPtr)(void) )
 {
     uint8_t register_timer_status;
@@ -58,7 +54,6 @@ uint8_t AppSched_registerTimer( AppSched_Scheduler *scheduler, uint32_t timeout,
         register_timer_status = (scheduler -> timersCount) + OFF_SET;
         /* Increment Timers count*/
         scheduler -> timersCount++;
-
     }
     else
     {   
@@ -68,7 +63,6 @@ uint8_t AppSched_registerTimer( AppSched_Scheduler *scheduler, uint32_t timeout,
     }
 
     return register_timer_status;
-
 }
 
 uint32_t AppSched_getTimer( AppSched_Scheduler *scheduler, uint8_t timer )
