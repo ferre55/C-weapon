@@ -1,8 +1,8 @@
 # Scheduler
 
-The [Scheduler](https://www.w3schools.com/dsa/dsa_data_queues.php) is a software component designed to manage and execute multiple tasks in a time-based manner. It allows for the registration, starting, stopping, and periodic execution of tasks.
+The [Scheduler](https://en.wikipedia.org/wiki/Round-robin_scheduling) is a software component designed to manage and execute multiple tasks in a time-based manner. It allows for the registration, starting, stopping, and periodic execution of tasks.
 
-![Alt text](https://miro.medium.com/v2/resize:fit:1001/0*7fDsAPlAoFEca0sW.png)
+![Alt text](https://www.boardinfinity.com/blog/content/images/2022/12/Your-paragraph-text--82--1.jpg)
 
 ## Characteristics
 
@@ -88,8 +88,9 @@ void AppSched_initScheduler( AppSched_Scheduler *scheduler )
 }
 
 ```
-- Initializes the scheduler structure with the values passed as parameters.
-- Sets the initial values for the task and tick counters.
+The function AppSched_initScheduler initializes the scheduler by setting:
+- tasksCount to 0 (initializes the task counter).
+- tickCount to 0 (initializes the tick counter).
 
 ## Register a task
 
@@ -138,11 +139,13 @@ uint8_t AppSched_registerTask( AppSched_Scheduler *scheduler, void (*initPtr)(vo
 
 
 ```
-- Registers a task with the scheduler.
-- Sets the task control block (TCB) with the provided parameters.
-- Validates the periodicity and returns a Task ID if the operation is successful.
+- The function AppSched_registerTask registers a new task in the scheduler.
+
+### Validate Periodicity
+The function also validates the periodicity to ensure it is not less than the tick value and is a multiple of TIME_OUT. If the validation is successful, the task is registered, and the function returns a task ID. If not, it returns FALSE.
 
 ## Stop a task
+The function AppSched_stopTask stops a specific task in the scheduler. It sets the startFlag of the task to FALSE to indicate that the task should no longer run.
 ```c
 uint8_t AppSched_stopTask( AppSched_Scheduler *scheduler, uint8_t task )
 {
@@ -166,12 +169,17 @@ uint8_t AppSched_stopTask( AppSched_Scheduler *scheduler, uint8_t task )
 
 
 ```
+### Explanation of the stop Function
 
-- Stops a registered task from running.
-- Sets the start flag of the specified task to FALSE.
-- Returns TRUE if the task was stopped, otherwise returns FALSE.
+- The function takes a scheduler and a task ID as parameters.
+- It checks if the task ID is valid (greater than 0 and less than or equal to TASKS_N).
+- If valid, it sets the startFlag of the task to FALSE and returns TRUE to indicate success.
+- If not valid, it returns FALSE to indicate failure.
 
 ## Start a task
+
+The function AppSched_startTask starts a specific task in the scheduler. It sets the startFlag of the task to TRUE to indicate that the task should run.
+
 ```c
 uint8_t AppSched_startTask( AppSched_Scheduler *scheduler, uint8_t task )
 {
@@ -195,11 +203,18 @@ uint8_t AppSched_startTask( AppSched_Scheduler *scheduler, uint8_t task )
 
 
 ```
-- Starts a previously stopped task.
-- Sets the start flag of the specified task to TRUE.
-- Returns TRUE if the task was started, otherwise returns FALSE.
+### Explanation of the start Function
+
+- The function takes a scheduler and a task ID as parameters.
+- It checks if the task ID is valid (greater than 0 and less than or equal to TASKS_N).
+- If valid, it sets the startFlag of the task to TRUE and returns TRUE to indicate success.
+- If not valid, it returns FALSE to indicate failure.
+
+
 
 ## Change task period
+The function AppSched_periodTask changes the periodicity of a specific task in the scheduler. It sets the period of the task and ensures the task’s periodicity is valid.
+
 ```c
 uint8_t AppSched_periodTask( AppSched_Scheduler *scheduler, uint8_t task, uint32_t period )
 {
@@ -232,7 +247,20 @@ uint8_t AppSched_periodTask( AppSched_Scheduler *scheduler, uint8_t task, uint32
 
 
 ```
+
+### Explanation of the change task period Function
+
+- The function takes a scheduler, a task ID, and a period as parameters.
+- It checks if the task ID is valid (greater than 0 and less than or equal to TASKS_N).
+- It validates the periodicity to ensure it is a multiple of TICK_VAL.
+- If valid, it sets the period of the task and the startFlag to TRUE, returning TRUE to indicate success.
+- If not valid, it returns FALSE to indicate failure.
+
+
 ## Start the scheduler
+
+The function AppSched_startScheduler starts the scheduler and manages the execution of tasks based on their periodicity and initialization routines.
+
 ```c
 
 void AppSched_startScheduler( AppSched_Scheduler *scheduler )
@@ -276,3 +304,28 @@ void AppSched_startScheduler( AppSched_Scheduler *scheduler )
 }
 
 ```
+### Initialization of Time Variables
+```c
+uint32_t tickstart = milliseconds();
+uint32_t elapsed = 0; /* Counter of ticks */
+uint32_t new_elapsed = 0; /* Counter of ticks */
+```
+- tickstart is initialized with the current time in milliseconds.
+- elapsed and new_elapsed are initialized to 0 to keep track of the elapsed time.
+
+### Running Initialization Functions
+```c
+```
+- The function iterates through all tasks in the scheduler.
+- For each task, if an initialization function (initFunc) is defined and the task’s startFlag is TRUE, the initialization function is called.
+
+### Main Scheduler Loop
+```c
+```
+- The loop runs until new_elapsed exceeds the scheduler’s timeout value.
+- new_elapsed is updated with the current time minus tickstart.
+- If the difference between new_elapsed and elapsed is greater than or equal to the scheduler’s tick interval, the following actions are performed:
+    - The tickCount is incremented.
+    - elapsed is updated by adding the tick interval.
+    - The function iterates through all tasks in the scheduler.
+    - For each task, if the task’s period is a multiple of the tick interval and the task’s startFlag is TRUE, the task function (taskFunc) is called.
