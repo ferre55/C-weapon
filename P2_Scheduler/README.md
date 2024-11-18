@@ -315,12 +315,41 @@ uint32_t new_elapsed = 0; /* Counter of ticks */
 
 ### Running Initialization Functions
 ```c
+for (uint8_t y = 0; y < scheduler->tasks; y++)
+{
+    if ((scheduler->taskPtr[y].initFunc != NULL) && (scheduler->taskPtr[y].startFlag == TRUE))
+    {
+        scheduler->taskPtr[y].initFunc();
+    }
+    else
+    {
+        /* initFunc == NULL */
+        /* Do Nothing */
+    }
+}
 ```
 - The function iterates through all tasks in the scheduler.
 - For each task, if an initialization function (initFunc) is defined and the task’s startFlag is TRUE, the initialization function is called.
 
 ### Main Scheduler Loop
 ```c
+while (new_elapsed <= scheduler->timeout)
+{   
+    new_elapsed = milliseconds() - tickstart;
+
+    if (new_elapsed - elapsed >= scheduler->tick)
+    {
+        scheduler->tickCount++;
+        elapsed += scheduler->tick;
+        for (uint8_t a = 0; a < scheduler->tasks; a++)
+        {
+            if ((scheduler->tickCount % ((scheduler->taskPtr[a].period) / (scheduler->tick)) == 0) && (scheduler->taskPtr[a].startFlag == TRUE))
+            {
+                scheduler->taskPtr[a].taskFunc();
+            }
+        }
+    }
+}
 ```
 - The loop runs until new_elapsed exceeds the scheduler’s timeout value.
 - new_elapsed is updated with the current time minus tickstart.
