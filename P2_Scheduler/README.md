@@ -15,6 +15,13 @@ The [Scheduler](https://en.wikipedia.org/wiki/Round-robin_scheduling) is a softw
  
 The Scheduler uses a structure to manage tasks and their execution. Each task has an associated period, initialization function, and task function. The Scheduler runs tasks based on their periods and the defined tick value.
 
+## Round Robin Algorithm
+The code for the scheduler implements a Round Robin scheduling algorithm. This is evident because:
+
+- **Equal Time Slices:** Each task is given an equal opportunity to execute based on the tick interval. The scheduler checks each task in a cyclic order.
+- **Periodic Execution:** Tasks are executed periodically based on their defined periods, ensuring that each task gets a fair share of CPU time.
+- **Fairness:** The algorithm ensures that no single task can monopolize the CPU, as each task is executed in a round-robin manner.
+
 ## Functions
 
 To implement the Scheduler, we need to create the following functions:
