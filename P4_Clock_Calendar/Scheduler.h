@@ -19,9 +19,9 @@
 /*----------------------------------------------------------------------------*/
 #define FALSE                0u         /*!< Boolean false value */
 #define TRUE                 1u         /*!< Boolean true value */
-#define TASKS_N              1u         /*!< Number of tasks */
+#define TASKS_N              2u         /*!< Number of tasks */
 #define TICK_VAL             100u       /*!< Tick value in milliseconds */
-#define TIME_OUT             10000u     /*!< Timeout value in milliseconds */
+#define TIME_OUT             150000u     /*!< Timeout value in milliseconds */
 
 /*----------------------------------------------------------------------------*/
 /*                                 Data types                                 */
