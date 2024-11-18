@@ -55,6 +55,16 @@ typedef struct _AppSched_Scheduler
 
 } AppSched_Scheduler;
 
+
+/* Declare global variables as extern */
+
+/* Scheduler configuration structures as extern */
+extern AppSched_Scheduler Sche;
+extern AppSched_Task tasks[ TASKS_N ];
+
+/* Tasks IDs as extern*/
+extern uint8_t TaskID1, TaskID2;
+
 /*----------------------------------------------------------------------------*/
 /*                           Declaration of functions                         */
 /*----------------------------------------------------------------------------*/
