@@ -1,27 +1,24 @@
 # Queue Buffer
 
-[Circular Buffer](https://en.wikipedia.org/wiki/Circular_buffer) is a data structure, also knows as circular queue, cyclic buffer or ring buffer.
+[Queue Buffer](https://www.w3schools.com/dsa/dsa_data_queues.php) is a data structure that follows the First In, First Out (FIFO) principle. It is used to store data in a sequential manner, where the first element added is the first one to be removed.
 
-![Alt text](https://techvidvan.com/tutorials/wp-content/uploads/sites/2/2021/06/TV-Queue-normal-images-06.jpg)
+![Alt text](https://miro.medium.com/v2/resize:fit:1001/0*7fDsAPlAoFEca0sW.png)
 
 ## Characteristics
 
-- Is a array of constant length.
-- Store data in a continuous loop.
-- When the buffer is filled entries get overridden automatically.
-- The last element of the queue is connected to the first element.
-- Follows the FIFO(first in, first out) approach.
+- **Fixed Size:** The buffer is an array of constant length.
+- **Sequential Storage:** Data is stored in a linear sequence.
+- **FIFO Approach:** Follows the First In, First Out (FIFO) approach, meaning the first element added is the first one to be removed.
+- **Head and Tail Pointers:** Utilizes two pointers, Head and Tail, to manage the addition and removal of elements.
 
-## How works?
+## How it works?
  
-The circular buffer has two pointers, commonly called for the implementation Head and Tail.
+The queue buffer has two pointers, commonly called Head and Tail, for implementation.
 
- - Head (Write-Front): The head pointer increments as the data is added to the buffer. To the actions to add elements to the buffer
- is also refered as write data. Head points to where the next write will occur.
+- **Head (Write-Front):** The head pointer increments as data is added to the buffer. The actions to add elements to the buffer are referred to as writing data. The Head points to where the next write will occur.
+- **Tail (Read-Rear):** The tail pointer increments as data is removed from the buffer. The actions to remove elements from the buffer are referred to as reading data. The Tail points to where the next read will occur.
 
-  - Tail (Read-Rear): The head pointer increments as the data is removed from the buffer. To the actions to remover elements from the buffer is also refered as read data.Tail points to where the next read will occur.
-
-Buffer is full when the pointers Head and Tail meet.
+The buffer is considered full when the Head and Tail pointers meet, and it is considered empty when the Head and Tail pointers are equal and the buffer has no elements.
 
 ## Functions
 
